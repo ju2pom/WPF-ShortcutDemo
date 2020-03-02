@@ -1,0 +1,80 @@
+﻿<Window x:Class="ShortCutDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShortCutDemo"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="450"
+        Width="800"
+        x:Name="Root">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Margin" Value="1,0" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding
+            AutomationProperties.Name="ToggleMaximizeKeyBinding"
+            Gesture="F11"
+            Command="{Binding ToggleMaximizeCommand, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}"
+            />
+        <KeyBinding
+            AutomationProperties.Name="ToggleBoldKeyBinding"
+            Command="{Binding ToggleBoldCommand}"
+            Gesture="Ctrl+B"
+            />
+        <KeyBinding
+            AutomationProperties.Name="ToggleItalicKeyBinding"
+            Command="{Binding ToggleItalicCommand}"
+            Gesture="Ctrl+I"
+            />
+        <KeyBinding
+            AutomationProperties.Name="ToggleUnderlinedKeyBinding"
+            Command="{Binding ToggleUnderlinedCommand}"
+            Gesture="Ctrl+U"
+            />
+    </Window.InputBindings>
+    <DockPanel>
+        <WrapPanel
+            DockPanel.Dock="Top">
+            <Button
+                Command="{Binding ToggleMaximizeCommand, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}"
+                Content="&#xE9A6;"
+                FontFamily="Segoe MDL2 Assets"
+                ToolTip="Maximize"
+                local:ToolTipShortcutBehavior.AutomationUIName="ToggleMaximizeKeyBinding"
+                />
+            <Button
+                Command="{Binding ToggleBoldCommand}"
+                Content="&#xE8DD;"
+                FontFamily="Segoe MDL2 Assets"
+                ToolTip="Bold"
+                local:ToolTipShortcutBehavior.AutomationUIName="ToggleBoldKeyBinding"
+                />
+            <Button
+                Command="{Binding ToggleItalicCommand}"
+                Content="&#xE8DB;"
+                FontFamily="Segoe MDL2 Assets"
+                ToolTip="Italic"
+                local:ToolTipShortcutBehavior.AutomationUIName="ToggleItalicKeyBinding"
+                />
+            <Button
+                Command="{Binding ToggleItalicCommand}"
+                Content="&#xE8DC;"
+                FontFamily="Segoe MDL2 Assets"
+                ToolTip="Underlined"
+                local:ToolTipShortcutBehavior.AutomationUIName="ToggleUnderlinedKeyBinding"
+                />
+        </WrapPanel>
+        <RichTextBox>
+            <i:Interaction.Behaviors>
+                <local:RichTextBoxBehavior SelectedText="{Binding SelectedText, Mode=OneWayToSource}" />
+            </i:Interaction.Behaviors>
+        </RichTextBox>
+    </DockPanel>
+</Window>
